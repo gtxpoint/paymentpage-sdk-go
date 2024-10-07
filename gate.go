@@ -21,6 +21,11 @@ func (g *Gate) GetPaymentPageUrl(payment Payment) string {
 	return g.paymentPage.GetUrl(payment)
 }
 
+// Method builds encrypted payment URL
+func (g *Gate) GetEncryptedPaymentPageUrl(payment Payment, encryptionKey string) string {
+	return g.paymentPage.GetEncryptedUrl(payment, encryptionKey)
+}
+
 // Method for handling callback
 func (g *Gate) HandleCallback(callbackData string) (*Callback, error) {
 	callback, callbackError := NewCallback(g.signatureHandler, callbackData)
