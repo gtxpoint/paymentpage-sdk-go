@@ -83,6 +83,10 @@ func (p *Payment) GetParams() map[string]interface{} {
 	return p.params
 }
 
+func (p *Payment) getProjectId() int {
+	return p.params[ParamProjectId].(int)
+}
+
 // Constructor for Payment structure
 func NewPayment(projectId int, paymentId interface{}) *Payment {
 	payment := new(Payment)

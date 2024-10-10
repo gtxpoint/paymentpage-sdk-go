@@ -32,6 +32,19 @@ gate := paymentpage.NewGate("your project secret")
 paymentPageUrl := gate.GetPaymentPageUrl(*payment)
 ``` 
 
+### Get encrypted URL for payment
+```go
+import "github.com/trxhosts/paymentpage-sdk-go"
+
+payment := paymentpage.NewPayment(11, "test_payment_id")
+payment.SetParam(paymentpage.ParamPaymentCurrency, "EUR")
+payment.SetParam(paymentpage.ParamPaymentAmount, 1000)
+
+gate := paymentpage.NewGate("your project secret")
+paymentPageUrl := gate.GetEncryptedPaymentPageUrl(*payment, "encryption-key")
+```
+It is better to have 32 characters long key.
+
 `paymentPageUrl` here is the signed URL.
 
 ### Handle callback from TrxHosts

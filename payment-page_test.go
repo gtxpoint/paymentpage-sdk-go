@@ -4,6 +4,7 @@ import (
 	"net/url"
 	"reflect"
 	"testing"
+	"strings"
 )
 
 func TestPaymentPage(t *testing.T) {
@@ -81,6 +82,29 @@ func TestPaymentPage(t *testing.T) {
 			"For", "GetUrl",
 			"expected", comparePaymentQuery,
 			"got", realQuery,
+		)
+	}
+
+	paymentUrlEncrypted := paymentPage.GetEncryptedUrl(*payment, "123")
+	parsedUrlEncrypted, err := url.Parse(paymentUrlEncrypted)
+
+	queryFromEncrypted, _ := url.ParseQuery(parsedUrlEncrypted.RawQuery)
+
+	if len(queryFromEncrypted) > 0 {
+		t.Error(
+			"For", "GetEncryptedUrl",
+			"expected", "empty",
+			"got", queryFromEncrypted,
+		)
+	}
+
+	pathItems := strings.Split(parsedUrlEncrypted.Path, "/")
+
+	if pathItems[1] != "11" {
+		t.Error(
+			"For", "GetEncryptedUrl",
+			"expected", "11",
+			"got", pathItems[1],
 		)
 	}
 }
