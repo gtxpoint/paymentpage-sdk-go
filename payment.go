@@ -50,7 +50,6 @@ const (
 	ParamRegionCode           string = "region_code"
 	ParamTargetElement        string = "target_element"
 	ParamTerminalId           string = "terminal_id"
-	ParamBaseUrl              string = "baseurl"
 	ParamPaymentExtraParam    string = "payment_extra_param"
 
 	PaymentTypePurchase  string = "purchase"

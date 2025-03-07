@@ -9,31 +9,21 @@ import (
 
 // Structure for build payment URL
 type PaymentPage struct {
-	// Payment domain with path
-	baseUrl string
-
 	// Signature handler for generate signature
 	signatureHandler SignatureHandler
 }
 
-// Method for set base payment page URL
-func (p *PaymentPage) SetBaseUrl(baseUrl string) *PaymentPage {
-	p.baseUrl = baseUrl
-
-	return p
-}
-
 // Method builds payment URL
-func (p *PaymentPage) GetUrl(payment Payment) string {
+func (p *PaymentPage) GetUrl(baseUrl string, payment Payment) string {
 	queryString := p.prepareQueryString(payment)
 
-	return fmt.Sprintf("%s?%s", p.baseUrl, queryString)
+	return fmt.Sprintf("%s?%s", baseUrl, queryString)
 }
 
 // Method builds encrypted payment URL
-func (p *PaymentPage) GetEncryptedUrl(payment Payment, encryptionKey string) string {
+func (p *PaymentPage) GetEncryptedUrl(baseUrl string, payment Payment, encryptionKey string) string {
 	queryString := p.prepareQueryString(payment)
-	parsedUrl, err := url.Parse(p.baseUrl)
+	parsedUrl, err := url.Parse(baseUrl)
 
 	if err != nil {
 		fmt.Println("Cant parse base url")
@@ -75,7 +65,7 @@ func (p *PaymentPage) prepareQueryString(payment Payment) string {
 
 // Constructor for PaymentPage structure
 func NewPaymentPage(signatureHandler SignatureHandler) *PaymentPage {
-	paymentPage := PaymentPage{"https://paymentpage.trxhost.com/payment", signatureHandler}
+	paymentPage := PaymentPage{signatureHandler}
 
 	return &paymentPage
 }

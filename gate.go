@@ -9,21 +9,14 @@ type Gate struct {
 	paymentPage PaymentPage
 }
 
-// Method for set base payment page URL
-func (g *Gate) SetBaseUrl(url string) *Gate {
-	g.paymentPage.SetBaseUrl(url)
-
-	return g
-}
-
 // Method build payment URL
-func (g *Gate) GetPaymentPageUrl(payment Payment) string {
-	return g.paymentPage.GetUrl(payment)
+func (g *Gate) GetPaymentPageUrl(baseUrl string, payment Payment) string {
+	return g.paymentPage.GetUrl(baseUrl, payment)
 }
 
 // Method builds encrypted payment URL
-func (g *Gate) GetEncryptedPaymentPageUrl(payment Payment, encryptionKey string) string {
-	return g.paymentPage.GetEncryptedUrl(payment, encryptionKey)
+func (g *Gate) GetEncryptedPaymentPageUrl(baseUrl string, payment Payment, encryptionKey string) string {
+	return g.paymentPage.GetEncryptedUrl(baseUrl, payment, encryptionKey)
 }
 
 // Method for handling callback

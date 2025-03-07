@@ -39,8 +39,7 @@ func TestGate(t *testing.T) {
 
 	gate := NewGate("qwerty")
 
-	gate.SetBaseUrl("http://test.test/pay")
-	paymentPageUrl := gate.GetPaymentPageUrl(*payment)
+	paymentPageUrl := gate.GetPaymentPageUrl("http://test.test/pay", *payment)
 	parsedUrl, err := url.Parse(paymentPageUrl)
 	query, _ := url.ParseQuery(parsedUrl.RawQuery)
 
