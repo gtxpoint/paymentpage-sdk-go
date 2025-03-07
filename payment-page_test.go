@@ -13,6 +13,7 @@ func TestPaymentPage(t *testing.T) {
 	signatureHandler := NewSignatureHandler("qwerty")
 	paymentPage := NewPaymentPage(*signatureHandler)
 
+    compareBaseUrl := "https://test.test/pay"
 	comparePaymentHost := "test.test"
 	comparePaymentPath := "/pay"
 	comparePaymentQuery := map[string]interface{}{
@@ -74,7 +75,7 @@ func TestPaymentPage(t *testing.T) {
 		)
 	}
 
-	paymentUrlEncrypted := paymentPage.GetEncryptedUrl(*payment, "123")
+	paymentUrlEncrypted := paymentPage.GetEncryptedUrl(compareBaseUrl, *payment, "123")
 	parsedUrlEncrypted, err := url.Parse(paymentUrlEncrypted)
 
 	queryFromEncrypted, _ := url.ParseQuery(parsedUrlEncrypted.RawQuery)
