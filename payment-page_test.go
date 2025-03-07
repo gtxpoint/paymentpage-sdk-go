@@ -31,7 +31,7 @@ func TestPaymentPage(t *testing.T) {
 	payment.SetParam("payment_amount", 1000)
 	payment.SetParam("some_future_bool_param", true)
 
-	paymentUrl := paymentPage.GetUrl(*payment)
+	paymentUrl := paymentPage.GetUrl(compareBaseUrl, *payment)
 	parsedUrl, err := url.Parse(paymentUrl)
 	query, _ := url.ParseQuery(parsedUrl.RawQuery)
 
